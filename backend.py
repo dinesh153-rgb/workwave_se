@@ -10,7 +10,7 @@ from functools import wraps
 import os
 import hashlib
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='', static_folder='.')
 CORS(app)
 app.config['SECRET_KEY'] = 'your-secret-key'  # Change to a secure key in production
 
@@ -879,7 +879,11 @@ def generate_resume():
 
 @app.route('/')
 def home():
-    return "Job Recommendation System is running."
+    try:
+        return send_from_directory('.', 'index.html')
+    except Exception as e:
+        print(f"Error serving index.html: {str(e)}")
+        return f"Error serving index.html: {str(e)}", 500
 
 if __name__ == '__main__':
     # Create uploads folder if it doesn't exist
