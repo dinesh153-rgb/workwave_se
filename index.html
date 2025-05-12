@@ -1,0 +1,2877 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WorkWave - Job Finder</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* Global Styles */
+        :root {
+            --primary-blue: #1e40af;
+            --primary-blue-light: #3b82f6;
+            --accent-orange: #f97316;
+            --accent-purple: #9333ea;
+            --dark-gray: #1f2937;
+            --medium-gray: #4b5563;
+            --light-gray: #e5e7eb;
+            --white: #ffffff;
+            --gradient-blue: linear-gradient(135deg, #3b82f6, #1e40af);
+            --gradient-orange: linear-gradient(135deg, #fb923c, #f97316);
+            --gradient-purple: linear-gradient(135deg, #a855f7, #9333ea);
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+            --animation-duration: 0.5s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--light-bg);
+            color: var(--dark-gray);
+            line-height: 1.6;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+
+
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1.2rem 3rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            animation: slideInRight 0.7s ease-out;
+        }
+
+        header img.logo-img {
+            max-width: 120px;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+        }
+
+        header h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary-blue);
+            letter-spacing: 1px;
+            background: var(--gradient-blue);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        nav {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        nav a, nav button {
+            background: none;
+            border: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary-blue);
+            cursor: pointer;
+            padding: 0.75rem 1.5rem;
+            transition: all 0.3s ease;
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        nav a:hover, nav button:hover {
+            background: var(--gradient-blue);
+            color: var(--white);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(30, 64, 175, 0.2);
+        }
+        
+        nav a::before, nav button::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 3px;
+            background: var(--gradient-blue);
+            transition: width 0.3s ease;
+        }
+        
+        nav a:hover::before, nav button:hover::before {
+            width: 80%;
+        }
+
+        /* Main Content */
+        main {
+            min-height: calc(100vh - 80px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 3rem;
+            position: relative;
+            background-image: url('https://images.unsplash.com/photo-1497215842964-222b430dc094?q=80&w=2070&auto=format&fit=crop');
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        main::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(248, 250, 252, 0.9), rgba(248, 250, 252, 0.7));
+            z-index: 0;
+        }
+        
+        main > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Landing Page */
+        .auth-container {
+            display: flex;
+            flex-direction: row;
+            background: var(--white);
+            border-radius: 24px;
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+            max-width: 1600px;
+            width: 100%;
+            transition: all 0.5s ease;
+            margin-top: 2rem;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .auth-container:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .auth-hero {
+            flex: 1;
+            background: var(--white);
+            padding: 5rem 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            color: var(--dark-gray);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .auth-hero::after {
+            content: '';
+            position: absolute;
+            bottom: -50px;
+            right: -50px;
+            width: 200px;
+            height: 200px;
+            background: var(--gradient-blue);
+            opacity: 0.1;
+            border-radius: 50%;
+            z-index: 0;
+        }
+
+        .auth-hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .auth-hero img {
+            max-width: 450px;
+            margin-bottom: 1.5rem;
+            filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.2));
+        }
+
+        .auth-hero p.tagline {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--dark-gray);
+            letter-spacing: 1px;
+            background: var(--gradient-blue);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+            position: relative;
+            z-index: 1;
+        }
+
+        .auth-hero p.description {
+            font-size: 1.8rem;
+            font-weight: 400;
+            margin-bottom: 2.5rem;
+            color: #4b5563;
+        }
+
+        .auth-hero button {
+            background: var(--gradient-purple);
+            color: var(--white);
+            padding: 1.2rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 8px 20px rgba(124, 58, 237, 0.3);
+        }
+
+        .auth-hero button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(109, 40, 217, 0.3);
+        }
+
+        .auth-image {
+            flex: 1;
+            background-image: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            transition: all 0.5s ease;
+        }
+
+        .auth-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(30, 64, 175, 0.7), rgba(124, 58, 237, 0.4));
+        }
+
+        /* Login and Register Pages */
+        .auth-page {
+            background: var(--gradient-blue);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            max-width: 600px;
+            transition: opacity 0.3s ease;
+            min-height: calc(100vh - 80px);
+        }
+
+        .animated-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.15);
+            animation: floatAndScale 15s infinite ease-in-out;
+        }
+
+        .shape:nth-child(1) {
+            width: 120px;
+            height: 120px;
+            top: 10%;
+            left: 15%;
+            animation-delay: 0s;
+        }
+
+        .shape:nth-child(2) {
+            width: 90px;
+            height: 90px;
+            top: 60%;
+            left: 25%;
+            animation-delay: 3s;
+        }
+
+        .shape:nth-child(3) {
+            width: 150px;
+            height: 150px;
+            top: 30%;
+            right: 20%;
+            animation-delay: 6s;
+        }
+
+        .shape:nth-child(4) {
+            width: 70px;
+            height: 70px;
+            bottom: 20%;
+            right: 30%;
+            animation-delay: 9s;
+        }
+
+        @keyframes floatAndScale {
+            0% {
+                transform: translate(0, 0) scale(1);
+                opacity: 0.6;
+            }
+            50% {
+                transform: translate(50px, 50px) scale(1.2);
+                opacity: 0.3;
+            }
+            100% {
+                transform: translate(0, 0) scale(1);
+                opacity: 0.6;
+            }
+        }
+
+        .auth-form {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 3rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 500px;
+            z-index: 2;
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .auth-form h2 {
+            font-size: 2rem;
+            margin-bottom: 2.5rem;
+            color: var(--white);
+            text-align: center;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .auth-form input {
+            width: 100%;
+            padding: 0.75rem 0.75rem 0.75rem 0;
+            border: none;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+            background: transparent;
+            font-size: 1.1rem;
+            color: var(--white);
+            transition: border-bottom 0.3s ease;
+        }
+
+        .auth-form input:focus {
+            outline: none;
+            border-bottom: 2px solid var(--accent-orange);
+        }
+
+        .auth-form label {
+            position: absolute;
+            top: 0.75rem;
+            left: 0;
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.7);
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+
+        .auth-form input:focus + label,
+        .auth-form input:not(:placeholder-shown) + label {
+            top: -1rem;
+            font-size: 0.9rem;
+            color: var(--accent-orange);
+        }
+
+        .auth-form button {
+            width: 100%;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            background: var(--gradient-purple);
+            color: var(--white);
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .auth-form button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(109, 40, 217, 0.3);
+        }
+
+        .auth-form p {
+            font-size: 1rem;
+            color: var(--white);
+            text-align: center;
+        }
+
+        .auth-form a {
+            color: var(--accent-orange);
+            font-weight: 600;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .auth-form a:hover {
+            color: #fb923c;
+        }
+
+        /* Dashboard Page */
+        .dashboard-page {
+            background: var(--white);
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 1200px;
+            transition: all 0.5s ease;
+            border-radius: 24px;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .dashboard-page::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 200px;
+            background: var(--gradient-blue);
+            opacity: 0.1;
+            z-index: 0;
+        }
+
+        .dashboard-page h2 {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--primary-blue);
+            text-align: center;
+            font-weight: 800;
+            text-transform: uppercase;
+            position: relative;
+            z-index: 1;
+            background: var(--gradient-blue);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+        }
+
+        .dashboard-components {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 2rem;
+            width: 100%;
+            position: relative;
+            z-index: 1;
+            margin-top: 2rem;
+            animation: fadeIn var(--animation-duration) ease-out;
+        }
+
+        .component-card {
+            background: var(--white);
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            width: 300px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            animation: fadeIn calc(var(--animation-duration) + 0.2s) ease-out;
+            margin-bottom: 2rem;
+        }
+
+        .component-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--gradient-blue);
+        }
+
+        .component-card:nth-child(1) {
+            animation-delay: 0.2s;
+            background: linear-gradient(135deg, #fefcbf, #fef9c3);
+        }
+
+        .component-card:nth-child(2) {
+            animation-delay: 0.4s;
+            background: linear-gradient(135deg, #bfdbfe, #c3e8ff);
+        }
+
+        .component-card:nth-child(3) {
+            animation-delay: 0.6s;
+            background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+        }
+
+        .component-card:nth-child(4) {
+            animation-delay: 0.8s;
+            background: linear-gradient(135deg, #fbcfe8, #f9a8d4);
+        }
+
+        @keyframes dropIn {
+            0% {
+                opacity: 0;
+                transform: translateY(-100px);
+            }
+            60% {
+                opacity: 1;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .component-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-purple);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .component-card:hover::before {
+            opacity: 0.1;
+        }
+
+        .component-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .component-card h3 {
+            font-size: 1.8rem;
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .component-card p {
+            font-size: 1.1rem;
+            color: #6b7280;
+            line-height: 1.5;
+        }
+
+        /* Back to Dashboard Button */
+        .back-button {
+            display: inline-block;
+            margin: 2rem 0;
+            padding: 0.75rem 1.5rem;
+            background: var(--gradient-blue);
+            color: var(--white);
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        nav button {
+            margin-left: 1.5rem;
+            background: var(--gradient-blue);
+            color: var(--white);
+            border: none;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            animation: fadeIn 0.9s ease-out;
+            box-shadow: 0 4px 10px rgba(30, 64, 175, 0.2);
+        }
+
+        .dashboard-page header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background: rgba(255, 255, 255, 0.9);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid var(--light-gray);
+            animation: fadeIn 0.5s ease-out;
+            transition: all 0.3s ease;
+        }
+        
+        .dashboard-page header:hover {
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            border-bottom: 2px solid var(--primary-blue-light);
+        }
+
+        /* User Profile Page */
+        .profile-page {
+            background: var(--light-bg);
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 700px;
+            transition: opacity 0.3s ease;
+            border-radius: 24px;
+            box-shadow: var(--shadow);
+        }
+
+        .profile-display, .profile-form {
+            background: var(--white);
+            padding: 3rem;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            width: 100%;
+            animation: fadeIn 0.5s ease forwards;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .profile-display::before, .profile-form::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-blue);
+            opacity: 0.05;
+            z-index: 0;
+        }
+
+        .profile-display h2, .profile-form h2 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: var(--primary-blue);
+            text-align: center;
+            font-weight: 700;
+            position: relative;
+            z-index: 1;
+        }
+
+        .profile-display p {
+            font-size: 1.1rem;
+            color: #4b5563;
+            margin: 0.75rem 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .profile-display button, .profile-form button {
+            width: 100%;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            background: var(--gradient-purple);
+            color: var(--white);
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .profile-display button:hover, .profile-form button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(109, 40, 217, 0.3);
+        }
+
+        /* Resume Download Link Styling */
+        .resume-download {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            background: var(--gradient-blue);
+            nav a {
+                margin-left: 1.5rem;
+                color: var(--dark-gray);
+                text-decoration: none;
+                font-weight: 500;
+                transition: all 0.3s ease;
+                position: relative;
+                animation: fadeIn 0.8s ease-out;
+            }
+            z-index: 1;
+        }
+
+        .resume-download:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .profile-form .input-group {
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .profile-form input,
+        .profile-form input[type="file"] {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 1rem;
+            color: var(--dark-gray);
+            transition: border 0.3s ease;
+        }
+
+        .profile-form input:focus {
+            outline: none;
+            border-color: var(--accent-orange);
+            box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.1);
+        }
+
+        .profile-form input[type="file"] {
+            padding: 0.5rem;
+        }
+
+        .profile-form label {
+            display: block;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--dark-gray);
+            margin-bottom: 0.75rem;
+        }
+
+        .profile-form .resume-info {
+            font-size: 0.95rem;
+            color: #6b7280;
+            margin-top: 0.75rem;
+        }
+
+        .profile-form a {
+            color: var(--accent-orange);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .profile-form a:hover {
+            color: #fb923c;
+        }
+
+        /* Main Interface (Job Finder) */
+        .main-interface {
+            background: var(--white);
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 900px;
+            transition: all 0.5s ease;
+            border-radius: 24px;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .main-interface::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 200px;
+            background: var(--gradient-blue);
+            opacity: 0.05;
+            z-index: 0;
+        }
+
+        .user-input {
+            background: var(--white);
+            padding: 3rem;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            width: 100%;
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .user-input::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-blue);
+            opacity: 0.05;
+            z-index: 0;
+        }
+
+        .user-input h2 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: var(--primary-blue);
+            font-weight: 700;
+            position: relative;
+            z-index: 1;
+            background: var(--gradient-blue);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+        }
+
+        .user-input input,
+        .user-input select {
+            width: 100%;
+            padding: 0.75rem;
+            margin: 0.75rem 0;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .user-input select[multiple] {
+            height: 180px;
+            background: #f9fafb;
+        }
+
+        .user-input button {
+            background: var(--gradient-blue);
+            color: var(--white);
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 8px 20px rgba(30, 64, 175, 0.2);
+        }
+
+        .user-input button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.3);
+        }
+
+        .job-results {
+            width: 100%;
+            position: relative;
+            z-index: 1;
+        }
+
+        .job-results h2 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: var(--primary-blue);
+            font-weight: 700;
+        }
+
+        .job-card {
+            background: var(--white);
+            padding: 2rem;
+            margin: 1.5rem 0;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            animation: fadeIn 0.5s ease forwards;
+            animation-delay: calc(0.1s * var(--i, 0));
+        }
+
+        .job-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        .job-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 6px;
+            height: 100%;
+            background: var(--accent-orange);
+        }
+
+        .job-card h3 {
+            font-size: 1.6rem;
+            color: var(--primary-blue);
+            margin-bottom: 0.75rem;
+            font-weight: 700;
+        }
+
+        .job-card p {
+            font-size: 1rem;
+            color: #6b7280;
+            margin: 0.5rem 0;
+        }
+
+        .job-card .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        .job-card .skill-tag {
+            background: #dbeafe;
+            color: var(--secondary-blue);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .job-card .apply-button {
+            margin-top: 1rem;
+            padding: 0.75rem 1.5rem;
+            background: var(--gradient-purple);
+            color: var(--white);
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(124, 58, 237, 0.2);
+        }
+
+        .job-card .apply-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(109, 40, 217, 0.3);
+        }
+
+        /* Applications Page */
+        .applications-page {
+            background: var(--light-bg);
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 900px;
+            transition: opacity 0.3s ease;
+            border-radius: 24px;
+            box-shadow: var(--shadow);
+        }
+
+        .applications-list {
+            width: 100%;
+            position: relative;
+            z-index: 1;
+        }
+
+        .applications-list h2 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: var(--primary-blue);
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .application-card {
+            background: var(--white);
+            padding: 2rem;
+            margin: 1.5rem 0;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .application-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        .application-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 6px;
+            height: 100%;
+            background: var(--accent-green);
+        }
+
+        .application-card h3 {
+            font-size: 1.6rem;
+            color: var(--primary-blue);
+            margin-bottom: 0.75rem;
+            font-weight: 700;
+        }
+
+        .application-card p {
+            font-size: 1rem;
+            color: #6b7280;
+            margin: 0.5rem 0;
+        }
+
+        .application-card .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        .application-card .skill-tag {
+            background: #dbeafe;
+            color: var(--secondary-blue);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .application-card .status-section {
+            margin-top: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .application-card select {
+            padding: 0.5rem;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 1rem;
+            color: var(--dark-gray);
+        }
+
+        .application-card .update-button,
+        .application-card .delete-button {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .application-card .update-button {
+            background: var(--gradient-blue);
+            color: var(--white);
+        }
+
+        .application-card .update-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+
+        .application-card .delete-button {
+            background: var(--accent-red);
+            color: var(--white);
+        }
+
+        .application-card .delete-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+        }
+
+        /* Resources Page */
+        .resources-page {
+            background: var(--light-bg);
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 900px;
+            transition: opacity 0.3s ease;
+            border-radius: 24px;
+            box-shadow: var(--shadow);
+        }
+
+        .resources-tabs {
+            background: var(--white);
+            padding: 3rem;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .resources-tabs::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-blue);
+            opacity: 0.05;
+            z-index: 0;
+        }
+
+        .resources-tabs h2 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: var(--primary-blue);
+            font-weight: 700;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .tab-button {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            background: var(--neutral-gray);
+            color: var(--dark-gray);
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .tab-button.active, .tab-button:hover {
+            background: var(--gradient-purple);
+            color: var(--white);
+        }
+
+        .tab-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .tab-content h3 {
+            font-size: 1.6rem;
+            color: var(--primary-blue);
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+
+        .resource-card {
+            background: var(--white);
+            padding: 2rem;
+            margin: 1.5rem 0;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .resource-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        .resource-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 6px;
+            height: 100%;
+            background: var(--accent-purple);
+        }
+
+        .resource-card img {
+            width: 50px;
+            height: 50px;
+            margin-right: 1rem;
+            vertical-align: middle;
+            object-fit: contain;
+        }
+
+        .resource-card h3 {
+            font-size: 1.6rem;
+            color: var(--primary-blue);
+            margin-bottom: 0.75rem;
+            font-weight: 700;
+            display: inline-block;
+        }
+
+        .resource-card p {
+            font-size: 1rem;
+            color: #6b7280;
+            margin: 0.5rem 0;
+        }
+
+        .resource-card .apply-button {
+            margin-top: 1rem;
+            padding: 0.75rem 1.5rem;
+            background: var(--gradient-purple);
+            color: var(--white);
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .resource-card .apply-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(109, 40, 217, 0.3);
+        }
+
+        #assessment-questions .input-group {
+            background: #f9fafb;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+        }
+
+        #assessment-questions label {
+            display: block;
+            margin: 0.5rem 0;
+            font-size: 1rem;
+            color: #4b5563;
+        }
+
+        #assessment-questions input[type="radio"] {
+            margin-right: 0.5rem;
+        }
+
+        #assessment-results {
+            background: linear-gradient(135deg, #d4f4e2, #a7e8c2);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+        }
+
+        #assessment-results p {
+            font-size: 1rem;
+            color: var(--dark-gray);
+        }
+
+        #assessment-skill {
+            width: 100%;
+            padding: 0.75rem;
+            margin: 0.75rem 0;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        #assessment-history ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        #assessment-history li {
+            font-size: 1rem;
+            color: #4b5563;
+            margin: 0.5rem 0;
+        }
+
+        /* About Us Page */
+        .about-page, .contact-page {
+            background: var(--white);
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 1000px;
+            transition: all 0.5s ease;
+            border-radius: 24px;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            animation: fadeIn var(--animation-duration) ease-out;
+        }
+        
+        .about-content, .contact-content {
+            width: 100%;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .about-page h2, .contact-page h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: var(--primary-blue);
+            text-align: center;
+            font-weight: 800;
+            background: var(--gradient-blue);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+        }
+        
+        .about-hero, .contact-hero {
+            width: 100%;
+            height: 300px;
+            overflow: hidden;
+            border-radius: 16px;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+        }
+        
+        .about-hero img, .contact-hero img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .about-hero:hover img, .contact-hero:hover img {
+            transform: scale(1.05);
+        }
+        
+        .about-section {
+            margin-bottom: 2.5rem;
+            padding: 1.5rem;
+            background: var(--white);
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            animation: fadeIn calc(var(--animation-duration) + 0.2s) ease-out;
+        }
+        
+        .about-section h3, .contact-grid h3 {
+            font-size: 1.8rem;
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        .about-section p {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: #4b5563;
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .team-member {
+            text-align: center;
+            transition: transform 0.3s ease;
+            animation: slideInRight calc(var(--animation-duration) + 0.4s) ease-out;
+        }
+        
+        .team-member:hover {
+            transform: translateY(-10px);
+        }
+        
+        .team-member img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1rem;
+            border: 4px solid var(--white);
+            box-shadow: var(--shadow);
+        }
+        
+        .team-member h4 {
+            font-size: 1.2rem;
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        
+        .team-member p {
+            font-size: 0.9rem;
+            color: #6b7280;
+        }
+        
+        /* Contact Us Page */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .contact-form, .contact-info {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            animation: fadeIn calc(var(--animation-duration) + 0.3s) ease-out;
+        }
+        
+        .contact-form .input-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .contact-form label {
+            display: block;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--dark-gray);
+            margin-bottom: 0.5rem;
+        }
+        
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 1rem;
+            color: var(--dark-gray);
+            transition: border 0.3s ease;
+            font-family: inherit;
+        }
+        
+        .contact-form input:focus, .contact-form textarea:focus {
+            outline: none;
+            border-color: var(--accent-orange);
+            box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.1);
+        }
+        
+        .contact-form button {
+            background: var(--gradient-blue);
+            color: var(--white);
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            box-shadow: 0 8px 20px rgba(30, 64, 175, 0.2);
+            animation: pulse 2s infinite;
+        }
+        
+        .contact-form button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.3);
+        }
+        
+        .info-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .info-item i {
+            font-size: 1.5rem;
+            color: var(--accent-purple);
+            margin-right: 1rem;
+            width: 40px;
+            text-align: center;
+        }
+        
+        .info-item p {
+            font-size: 1.1rem;
+            color: #4b5563;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .social-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-blue);
+            color: var(--white);
+            border-radius: 50%;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            animation: fadeIn calc(var(--animation-duration) + 0.5s) ease-out;
+        }
+        
+        .social-icon:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+        
+        /* Hidden Class */
+        .hidden {
+            display: none;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .auth-container {
+                flex-direction: column;
+            }
+
+            .auth-hero {
+                padding: 3rem 1.5rem;
+            }
+
+            .auth-hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .auth-hero p.tagline {
+                font-size: 1.5rem;
+            }
+
+            .auth-hero p.description {
+                font-size: 1rem;
+            }
+
+            .auth-image {
+                height: 350px;
+            }
+
+            .shape {
+                width: 60px !important;
+                height: 60px !important;
+            }
+
+            .user-input select[multiple] {
+                height: 120px;
+            }
+
+            .job-card, .application-card, .resource-card {
+                padding: 1.5rem;
+            }
+
+            .profile-page, .main-interface, .dashboard-page, .applications-page, .resources-page, .about-page, .contact-page {
+                padding: 2rem;
+            }
+
+            .profile-display, .profile-form, .user-input, .resources-tabs {
+                padding: 2rem;
+            }
+
+            .dashboard-components {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .component-card {
+                width: 100%;
+                max-width: 350px;
+            }
+
+            .tabs {
+                flex-direction: column;
+            }
+            
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .team-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 1rem;
+            }
+            
+            .about-hero, .contact-hero {
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="workwave-logo.png" alt="WorkWave Logo" class="logo-img">
+            <h1>WorkWave</h1>
+        </div>
+        <nav id="nav-links"></nav>
+    </header>
+    <main id="main-content"></main>
+    <script>
+        const mainContent = document.getElementById('main-content');
+        const navLinks = document.getElementById('nav-links');
+        // Templates for each "page"
+        const landingPageTemplate = `
+            <section id="auth-container" class="auth-container">
+                <div class="auth-hero">
+                    <div class="auth-hero-content">
+                        <img src="workwave-logo.png" alt="WorkWave Logo">
+                        <p class="tagline">where talent meets tech</p>
+                        <p class="description">Empowering talent to connect with cutting-edge tech opportunities.</p>
+                        <button onclick="navigate('login')">Sign in</button>
+                    </div>
+                </div>
+                <div class="auth-image"></div>
+            </section>
+        `;
+        const loginPageTemplate = `
+            <section id="login-page" class="auth-page">
+                <div class="animated-bg">
+                    <div class="shape"></div>
+                    <div class="shape"></div>
+                    <div class="shape"></div>
+                    <div class="shape"></div>
+                </div>
+                <div class="auth-form">
+                    <h2>Welcome Back</h2>
+                    <div class="input-group">
+                        <input type="text" id="login-username" required aria-label="Username">
+                        <label for="login-username">Username</label>
+                    </div>
+                    <div class="input-group">
+                        <input type="password" id="login-password" required aria-label="Password">
+                        <label for="login-password">Password</label>
+                    </div>
+                    <button onclick="login()">Login</button>
+                    <p>Don't have an account? <a href="#" onclick="navigate('register')">Register</a></p>
+                </div>
+            </section>
+        `;
+
+        const registerPageTemplate = `
+            <section id="register-page" class="auth-page">
+                <div class="animated-bg">
+                    <div class="shape"></div>
+                    <div class="shape"></div>
+                    <div class="shape"></div>
+                    <div class="shape"></div>
+                </div>
+                <div class="auth-form">
+                    <h2>Create Account</h2>
+                    <div class="input-group">
+                        <input type="text" id="register-username" required aria-label="Username">
+                        <label for="register-username">Username</label>
+                    </div>
+                    <div class="input-group">
+                        <input type="password" id="register-password" required aria-label="Password">
+                        <label for="register-password">Password</label>
+                    </div>
+                    <button onclick="register()">Register</button>
+                    <p>Already have an account? <a href="#" onclick="navigate('login')">Login</a></p>
+                </div>
+            </section>
+        `;
+
+        const dashboardPageTemplate = `
+            <section id="dashboard-page" class="dashboard-page">
+                <h2>Welcome to WorkWave</h2>
+                <div class="dashboard-components">
+                    <div class="component-card" onclick="navigate('profile')">
+                        <h3><i class="fas fa-user-circle"></i> Profile</h3>
+                        <p>View and edit your personal information and resume.</p>
+                    </div>
+                    <div class="component-card" onclick="navigate('main')">
+                        <h3><i class="fas fa-search"></i> Job Finder</h3>
+                        <p>Find your dream job with personalized recommendations.</p>
+                    </div>
+                    <div class="component-card" onclick="navigate('applications')">
+                        <h3><i class="fas fa-clipboard-list"></i> Applications</h3>
+                        <p>Track the jobs you've applied for and manage their status.</p>
+                    </div>
+                    <div class="component-card" onclick="navigate('resources')">
+                        <h3><i class="fas fa-book"></i> Career Resources</h3>
+                        <p>Explore courses, articles, and assessments to boost your career.</p>
+                    </div>
+                    <div class="component-card" onclick="navigate('resume')">
+                        <h3><i class="fas fa-file-alt"></i> Resume Builder</h3>
+                        <p>Create a professional, ATS-friendly resume.</p>
+                    </div>
+                </div>
+            </section>
+        `;
+
+        const profilePageTemplate = `
+            <section id="profile-page" class="profile-page">
+                <a href="#" class="back-button" onclick="navigate('dashboard')">Back to Dashboard</a>
+                <div class="profile-display">
+                    <h2>Your Profile</h2>
+                    <p><strong>Name:</strong> <span id="profile-name-display"></span></p>
+                    <p><strong>Contact Number:</strong> <span id="profile-contact-display"></span></p>
+                    <p><strong>Email:</strong> <span id="profile-email-display"></span></p>
+                    <p><strong>Resume:</strong> <span id="profile-resume-display"></span></p>
+                    <a id="resume-download" href="#" class="resume-download" style="display: none;" download>Download Resume</a>
+                    <button onclick="toggleEditProfile()">Edit Profile</button>
+                </div>
+                <div class="profile-form hidden" id="edit-profile-form">
+                    <h2>Edit Profile</h2>
+                    <div class="input-group">
+                        <label for="profile-name">Name</label>
+                        <input type="text" id="profile-name" aria-label="Name">
+                    </div>
+                    <div class="input-group">
+                        <label for="profile-contact">Contact Number</label>
+                        <input type="tel" id="profile-contact" aria-label="Contact Number">
+                    </div>
+                    <div class="input-group">
+                        <label for="profile-email">Email</label>
+                        <input type="email" id="profile-email" aria-label="Email">
+                    </div>
+                    <div class="input-group">
+                        <label for="profile-resume">Resume</label>
+                        <input type="file" id="profile-resume" accept=".pdf" aria-label="Resume">
+                        <div class="resume-info" id="resume-info">No resume uploaded</div>
+                    </div>
+                    <button onclick="saveProfile()">Save Profile</button>
+                    <button onclick="toggleEditProfile()">Cancel</button>
+                </div>
+            </section>
+        `;
+
+        const mainInterfaceTemplate = `
+            <section id="main-interface" class="main-interface">
+                <a href="#" class="back-button" onclick="navigate('dashboard')">Back to Dashboard</a>
+                <div class="user-input">
+                    <h2>Find Your Dream Job</h2>
+                    <input type="text" id="name" placeholder="Enter your name" aria-label="Name">
+                    <label for="skills">Select Skills:</label>
+                    <select id="skills" multiple aria-label="Skills"></select>
+                    <label for="job-roles">Select Desired Roles:</label>
+                    <select id="job-roles" multiple aria-label="Job Roles"></select>
+                    <label for="experience">Experience Level:</label>
+                    <select id="experience" aria-label="Experience Level">
+                        <option value="Beginner">Beginner</option>
+                        <option value="Intermediate">Intermediate</option>
+                        <option value="Expert">Expert</option>
+                    </select>
+                    <label for="job-type">Job Type:</label>
+                    <select id="job-type" aria-label="Job Type">
+                        <option value="Full-time">Full-time</option>
+                        <option value="Part-time">Part-time</option>
+                        <option value="Internship">Internship</option>
+                    </select>
+                    <button onclick="fetchJobs()">Get Recommendations</button>
+                </div>
+                <div class="job-results">
+                    <h2>Recommended Jobs</h2>
+                    <div id="jobs-list"></div>
+                </div>
+            </section>
+        `;
+
+        const applicationsPageTemplate = `
+            <section id="applications-page" class="applications-page">
+                <a href="#" class="back-button" onclick="navigate('dashboard')">Back to Dashboard</a>
+                <div class="applications-list">
+                    <h2>Your Applications</h2>
+                    <div id="applications-list"></div>
+                </div>
+            </section>
+        `;
+
+        const resourcesPageTemplate = `
+            <section id="resources-page" class="resources-page">
+                <a href="#" class="back-button" onclick="navigate('dashboard')">Back to Dashboard</a>
+                <div class="resources-tabs">
+                    <h2>Career Resources</h2>
+                    <div class="tabs">
+                          <button class="tab-button" onclick="showTab('assessments')">Skill Assessments</button>
+                        <button class="tab-button active" onclick="showTab('courses')">Courses & Certifications</button>
+                        
+                    </div>
+                    <div id="courses-tab" class="tab-content">
+                        <h3>Recommended Learning Paths</h3>
+                        <div id="courses-list"></div>
+                    </div>
+                    <div id="articles-tab" class="tab-content hidden">
+                        <h3>Career Advice Articles</h3>
+                        <div id="articles-list"></div>
+                    </div>
+                    <div id="assessments-tab" class="tab-content hidden">
+                        <h3>Skill Assessments</h3>
+                        <select id="assessment-skill" aria-label="Select Skill">
+                            <option value="">Select a Skill</option>
+                            <option value="Python">Python</option>
+                            <option value="JavaScript">JavaScript</option>
+                            <option value="SQL">SQL</option>
+                            <option value="Java">Java</option>
+                            <option value="Git">Git</option>
+                        </select>
+                        <button onclick="startAssessment()">Start Assessment</button>
+                        <div id="assessment-questions" class="hidden"></div>
+                        <div id="assessment-results" class="hidden"></div>
+                        <div id="assessment-history">
+                            <h3>Assessment History</h3>
+                            <ul id="history-list"></ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        `;
+
+        const resumeBuilderTemplate = `
+  <style>
+    .user-input input,
+        .user-input select {
+      width: 100%;
+      margin-bottom: 12px;
+      padding: 10px;
+      font-size: 14px;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+  
+
+    .user-input button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .user-input h3 {
+      margin-top: 20px;
+    }
+  </style>
+
+  <section class="main-interface">
+    <a href="#" class="back-button" onclick="navigate('dashboard')">Back to Dashboard</a>
+    <div class="user-input">
+      <h2>Resume Builder</h2>
+
+      <input type="text" id="resume-name" placeholder="Your Name" autocomplete="off">
+      <input type="email" id="resume-email" placeholder="Email" autocomplete="off">
+      <input type="tel" id="resume-phone" placeholder="Phone Number" autocomplete="off">
+      <input type="text" id="resume-profile" placeholder="Profile Summary" autocomplete="off">
+
+
+
+      <h3>Education</h3>
+      <input type="text" id="edu-btech" placeholder="B.Tech Details" autocomplete="off">
+      <input type="text" id="edu-12" placeholder="12th Details" autocomplete="off">
+      <input type="text" id="edu-10" placeholder="10th Details" autocomplete="off">
+
+      <h3>Projects</h3>
+      <input type="text" id="resume-projects" placeholder="Mention your projects..." autocomplete="off">
+
+      <h3>Technical Skills</h3>
+      <select id="resume-techskills" multiple>
+        <option value="C">C</option>
+        <option value="C++">C++</option>
+        <option value="Java">Java</option>
+        <option value="Python">Python</option>
+        <option value="JavaScript">JavaScript</option>
+        <option value="SQL">SQL</option>
+      </select>
+
+      <h3>Soft Skills</h3>
+      <select id="resume-softskills" multiple>
+        <option value="Problem Solving">Problem Solving</option>
+        <option value="Team Management">Team Management</option>
+        <option value="Leadership">Leadership</option>
+        <option value="Adaptability">Adaptability</option>
+      </select>
+
+      <h3>Languages</h3>
+      <select id="resume-languages" multiple>
+        <option value="English">English</option>
+        <option value="Hindi">Hindi</option>
+        <option value="Telugu">Telugu</option>
+        <option value="Kannada">Kannada</option>
+        <option value="Tamil">Tamil</option>
+        <option value="Malayalam">Malayalam</option>
+      </select>
+
+      <button onclick="generateResume()">Generate Resume</button>
+    </div>
+  </section>
+`;
+
+        // About Us Page Template
+        const aboutUsTemplate = `
+            <section id="about-page" class="about-page">
+                <h2>About Us</h2>
+                <div class="about-content">
+                    <div class="about-hero">
+                        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" alt="WorkWave Team">
+                    </div>
+                    <div class="about-section">
+                        <h3>Our Mission</h3>
+                        <p>At WorkWave, we're dedicated to connecting talented professionals with innovative tech companies. Our platform streamlines the job search process, making it easier for job seekers to find their perfect role and for employers to discover exceptional talent. We believe that the right job can transform lives, and the right talent can transform companies.</p>
+                    </div>
+                    <div class="about-section">
+                        <h3>Our Story</h3>
+                        <p>Founded in 2023, WorkWave emerged from a simple observation: the tech job market needed a more efficient, user-friendly platform. Our founders, experienced tech professionals themselves, set out to create a solution that addresses the unique challenges of tech recruitment. What began as a small startup has grown into a comprehensive career platform serving thousands of users worldwide.</p>
+                    </div>
+                    <div class="about-section">
+                        <h3>Our Team</h3>
+                        <p>We're a diverse group of tech enthusiasts, HR specialists, and design thinkers committed to revolutionizing how tech professionals find their next career opportunity.</p>
+                        <div class="team-grid">
+                            <div class="team-member">
+                                <img src="P1.png" alt="Ch Dinesh">
+                                <h4>Ch Dinesh</h4>
+                                <p>CEO & Co-Founder</p>
+                            </div>
+                            <div class="team-member">
+                                <img src="P2.png" alt="P Jaya Chetan">
+                                <h4>P Jaya Chetan</h4>
+                                <p>CTO & Co-Founder</p>
+                            </div>
+                            
+                            
+                        </div>
+                    </div>
+                    <div class="about-section">
+                        <h3>Our Values</h3>
+                        <p>Innovation, integrity, and inclusivity are at the core of everything we do. We're committed to creating a platform that serves diverse needs and provides equal opportunities for all tech professionals, regardless of background.</p>
+                    </div>
+                </div>
+            </section>
+        `;
+
+        const contactUsTemplate = `
+            <section id="contact-page" class="contact-page">
+                <h2>Contact Us</h2>
+                <div class="contact-content">
+                    <div class="contact-hero">
+                        <img src="https://images.unsplash.com/photo-1423666639041-f56000c27a9a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1474&q=80" alt="Contact WorkWave">
+                    </div>
+                    <div class="contact-grid">
+                        <div class="contact-form">
+                            <h3>Send Us a Message</h3>
+                            <div class="input-group">
+                                <label for="contact-name">Name</label>
+                                <input type="text" id="contact-name" placeholder="Your Name">
+                            </div>
+                            <div class="input-group">
+                                <label for="contact-email">Email</label>
+                                <input type="email" id="contact-email" placeholder="Your Email">
+                            </div>
+                            <div class="input-group">
+                                <label for="contact-subject">Subject</label>
+                                <input type="text" id="contact-subject" placeholder="Subject">
+                            </div>
+                            <div class="input-group">
+                                <label for="contact-message">Message</label>
+                                <textarea id="contact-message" rows="5" placeholder="Your Message"></textarea>
+                            </div>
+                            <button type="submit" onclick="submitContactForm()">Send Message</button>
+                        </div>
+                        <div class="contact-info">
+                            <h3>Contact Information</h3>
+                            <div class="info-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <p>Amrita School of Engineering, Bangalore</p>
+                            </div>
+                            <div class="info-item">
+                                <i class="fas fa-phone"></i>
+                                <p>+91-9347125716</p>
+                            </div>
+                            <div class="info-item">
+                                <i class="fas fa-envelope"></i>
+                                <p>info@workwave.com</p>
+                            </div>
+                            <div class="info-item">
+                                <i class="fas fa-clock"></i>
+                                <p>Monday - Friday: 9:00 AM - 6:00 PM</p>
+                            </div>
+                            <h3>Follow Us</h3>
+                            <div class="social-links">
+                                <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                                <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                                <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                                <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        `;
+
+        // Clear all pending timeouts to prevent race conditions
+        function clearAllTimeouts() {
+            const highestId = window.setTimeout(() => {}, 0);
+            for (let i = 0; i < highestId; i++) {
+                window.clearTimeout(i);
+            }
+        }
+        
+        // Navigation function to switch between pages
+        function navigate(page) {
+            // Add a smooth transition effect when changing pages
+            console.log('Navigating to:', page);
+            // Clear any pending timeouts to prevent race conditions
+            clearAllTimeouts();
+            // Store the current page to prevent accidental overrides
+            window.currentPage = page;
+            mainContent.style.opacity = '0';
+            mainContent.style.transform = 'translateY(20px)';
+            setTimeout(() => {
+                // Double check we're still on the same navigation request
+                if (window.currentPage !== page) {
+                    console.log('Navigation interrupted, skipping render');
+                    return;
+                }
+                switch (page) {
+                    case 'home':
+                        mainContent.innerHTML = landingPageTemplate;
+                        updateNavLinks(false);
+                        break;
+                    case 'login':
+                        mainContent.innerHTML = loginPageTemplate;
+                        updateNavLinks(false);
+                        break;
+                    case 'register':
+                        mainContent.innerHTML = registerPageTemplate;
+                        updateNavLinks(false);
+                        break;
+                    case 'dashboard':
+                        console.log('Loading dashboard template');
+                        // Set content directly without delay to avoid race conditions
+                        mainContent.innerHTML = dashboardPageTemplate;
+                        console.log('Dashboard template loaded');
+                        updateNavLinks(true);
+                        break;
+                    case 'profile':
+                        mainContent.innerHTML = profilePageTemplate;
+                        updateNavLinks(true);
+                        loadProfile();
+                        break;
+                    case 'main':
+                        console.log('Loading job finder template');
+                        // Set content directly without delay to avoid race conditions
+                        mainContent.innerHTML = mainInterfaceTemplate;
+                        console.log('Job finder template loaded');
+                        updateNavLinks(true);
+                        loadMetadata();
+                        break;
+                    case 'applications':
+                        mainContent.innerHTML = applicationsPageTemplate;
+                        updateNavLinks(true);
+                        loadApplications();
+                        break;
+                    case 'resources':
+                        mainContent.innerHTML = resourcesPageTemplate;
+                        updateNavLinks(true);
+                        loadResources();
+                        loadAssessmentHistory();
+                        break;
+                    case 'resume':
+                        mainContent.innerHTML = resumeBuilderTemplate;
+                        updateNavLinks(true);
+                        break;
+                    case 'about':
+                        mainContent.innerHTML = aboutUsTemplate;
+                        updateNavLinks(localStorage.getItem("token") ? true : false);
+                        break;
+                    case 'contact':
+                        mainContent.innerHTML = contactUsTemplate;
+                        updateNavLinks(localStorage.getItem("token") ? true : false);
+                        break;
+                    default:
+                        mainContent.innerHTML = landingPageTemplate;
+                        updateNavLinks(false);
+                        break;
+                }
+                mainContent.style.opacity = '1';
+                mainContent.style.transform = 'translateY(0)';
+                window.scrollTo(0, 0);
+            }, 300);
+        }
+
+        // Update navigation links based on authentication state
+        function updateNavLinks(isAuthenticated) {
+            if (isAuthenticated) {
+                navLinks.innerHTML = `
+                    <a href="#" onclick="navigate('dashboard')">Dashboard</a>
+                    <a href="#" onclick="navigate('profile')">Profile</a>
+                    <a href="#" onclick="navigate('main')">Job Finder</a>
+                    <a href="#" onclick="navigate('applications')">Applications</a>
+                    <a href="#" onclick="navigate('resources')">Career Resources</a>
+                    <button onclick="logout()">Logout</button>
+                `;
+            } else {
+                navLinks.innerHTML = `
+                    <a href="#" onclick="navigate('home')">Home</a>
+                    <a href="#" onclick="navigate('about')">About Us</a>
+                    <a href="#" onclick="navigate('contact')">Contact</a>
+                    <a href="#" onclick="navigate('login')">Login</a>
+                    <a href="#" onclick="navigate('register')">Register</a>
+                `;
+            }
+        }
+
+        // Initial page load
+        document.addEventListener("DOMContentLoaded", () => {
+            if (localStorage.getItem("token")) {
+                navigate('dashboard'); // Default to dashboard after login
+            } else {
+                navigate('home');
+            }
+        });
+
+        async function register() {
+            const username = document.getElementById("register-username").value;
+            const password = document.getElementById("register-password").value;
+
+            try {
+                const response = await fetch("http://127.0.0.1:5000/register", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ username, password })
+                });
+                const data = await response.json();
+                if (data.error) {
+                    alert(data.error);
+                } else {
+                    alert("Registration successful! Please login.");
+                    navigate('login');
+                }
+            } catch (error) {
+                console.error("Error registering:", error);
+                alert("Registration failed. Please try again.");
+            }
+        }
+
+        async function login() {
+            const username = document.getElementById("login-username").value;
+            const password = document.getElementById("login-password").value;
+
+            try {
+                const response = await fetch("http://127.0.0.1:5000/login", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ username, password })
+                });
+                const data = await response.json();
+                if (data.error) {
+                    alert(data.error);
+                } else {
+                    localStorage.setItem("token", data.token);
+                    navigate('dashboard'); // Redirect to dashboard after login
+                }
+            } catch (error) {
+                console.error("Error logging in:", error);
+                alert("Login failed. Please try again.");
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem("token");
+            navigate('home');
+        }
+
+
+
+        async function loadProfile() {
+            try {
+                const response = await fetch("http://127.0.0.1:5000/profile", {
+                    headers: { "Authorization": `Bearer ${localStorage.getItem("token")}` }
+                });
+                const data = await response.json();
+                if (data.error) {
+                    alert(data.error);
+                    navigate('login');
+                    return;
+                }
+
+                // Display profile data
+                document.getElementById("profile-name-display").textContent = data.name || "Not set";
+                document.getElementById("profile-contact-display").textContent = data.contact || "Not set";
+                document.getElementById("profile-email-display").textContent = data.email || "Not set";
+                const resumeDisplay = document.getElementById("profile-resume-display");
+                const resumeDownload = document.getElementById("resume-download");
+
+                if (data.resume) {
+                    resumeDisplay.textContent = data.resume;
+                    resumeDownload.href = `http://127.0.0.1:5000/uploads/${data.resume}`;
+                    resumeDownload.setAttribute('download', data.resume);
+                    resumeDownload.style.display = "inline-block";
+
+                    // Test if the resume file exists by making a HEAD request
+                    try {
+                        const fileCheck = await fetch(resumeDownload.href, { method: "HEAD" });
+                        if (!fileCheck.ok) {
+                            resumeDisplay.textContent = "Resume file not found";
+                            resumeDownload.style.display = "none";
+                        }
+                    } catch (error) {
+                        console.error("Error checking resume file:", error);
+                        resumeDisplay.textContent = "Error accessing resume file";
+                        resumeDownload.style.display = "none";
+                    }
+                } else {
+                    resumeDisplay.textContent = "No resume uploaded";
+                    resumeDownload.style.display = "none";
+                }
+
+                // Pre-fill the edit form
+                document.getElementById("profile-name").value = data.name || "";
+                document.getElementById("profile-contact").value = data.contact || "";
+                document.getElementById("profile-email").value = data.email || "";
+                const resumeInfo = document.getElementById("resume-info");
+                resumeInfo.textContent = data.resume ? `Current resume: ${data.resume}` : "No resume uploaded";
+            } catch (error) {
+                console.error("Error fetching profile:", error);
+                alert("Error loading profile. Please try again.");
+            }
+        }
+
+        function toggleEditProfile() {
+            const displaySection = document.querySelector(".profile-display");
+            const editForm = document.getElementById("edit-profile-form");
+            displaySection.classList.toggle("hidden");
+            editForm.classList.toggle("hidden");
+        }
+
+        async function saveProfile() {
+            const name = document.getElementById("profile-name").value;
+            const contact = document.getElementById("profile-contact").value;
+            const email = document.getElementById("profile-email").value;
+            const resumeFile = document.getElementById("profile-resume").files[0];
+            const formData = new FormData();
+            formData.append("name", name);
+            formData.append("contact", contact);
+            formData.append("email", email);
+            if (resumeFile) {
+                formData.append("resume", resumeFile);
+            }
+            try {
+                const response = await fetch("http://127.0.0.1:5000/profile", {
+                    method: "POST",
+                    headers: {
+                        "Authorization": `Bearer ${localStorage.getItem("token")}`
+                    },
+                    body: formData
+                });
+
+                // Log the response status and headers for debugging
+                console.log("Response status:", response.status);
+                console.log("Response headers:", [...response.headers]);
+
+                // Check if the response is OK (status 200-299)
+                if (!response.ok) {
+                    const errorText = await response.text(); // Get raw text for non-JSON errors
+                    throw new Error(`Server error: ${response.status} ${response.statusText} - ${errorText}`);
+                }
+
+                // Parse JSON response
+                let data;
+                try {
+                    data = await response.json();
+                } catch (jsonError) {
+                    throw new Error("Invalid JSON response from server");
+                }
+
+                // Check for application-level errors in the JSON response
+                if (data.error) {
+                    alert(`Failed to update profile: ${data.error}`);
+                } else {
+                    alert("Profile updated successfully!");
+                    toggleEditProfile(); // Hide the form and show the display
+                    loadProfile(); // Refresh the profile display
+                }
+            } catch (error) {
+                console.error("Error saving profile:", error);
+                alert(`Error saving profile: ${error.message || "Please try again."}`);
+            }
+        }
+
+        // Contact form submission function
+        function submitContactForm() {
+            const name = document.getElementById('contact-name').value;
+            const email = document.getElementById('contact-email').value;
+            const subject = document.getElementById('contact-subject').value;
+            const message = document.getElementById('contact-message').value;
+            
+            // Validate form
+            if (!name || !email || !subject || !message) {
+                alert('Please fill in all fields');
+                return;
+            }
+            
+            // Email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert('Please enter a valid email address');
+                return;
+            }
+            
+            // In a real application, this would send the data to a server
+            // For now, we'll just show a success message
+            alert('Thank you for your message! We will get back to you soon.');
+            
+            // Clear the form
+            document.getElementById('contact-name').value = '';
+            document.getElementById('contact-email').value = '';
+            document.getElementById('contact-subject').value = '';
+            document.getElementById('contact-message').value = '';
+        }
+        
+        async function loadMetadata() {
+            try {
+                const response = await fetch("http://127.0.0.1:5000/metadata", {
+                    headers: { "Authorization": `Bearer ${localStorage.getItem("token")}` }
+                });
+                const data = await response.json();
+                const skillsSelect = document.getElementById("skills");
+                const rolesSelect = document.getElementById("job-roles");
+
+                if (skillsSelect && rolesSelect) {
+                    skillsSelect.innerHTML = "";
+                    rolesSelect.innerHTML = "";
+
+                    data.skills.forEach(skill => {
+                        const option = document.createElement("option");
+                        option.value = skill;
+                        option.textContent = skill;
+                        skillsSelect.appendChild(option);
+                    });
+
+                    data.job_roles.forEach(role => {
+                        const option = document.createElement("option");
+                        option.value = role;
+                        option.textContent = role;
+                        rolesSelect.appendChild(option);
+                    });
+                }
+            } catch (error) {
+                console.error("Error fetching metadata:", error);
+            }
+        }
+
+        async function fetchJobs() {
+            const name = document.getElementById("name").value;
+            const skills = Array.from(document.getElementById("skills").selectedOptions).map(option => option.value);
+            const roles = Array.from(document.getElementById("job-roles").selectedOptions).map(option => option.value);
+            const experienceLevel = document.getElementById("experience").value;
+            const jobType = document.getElementById("job-type").value;
+            const jobsList = document.getElementById("jobs-list");
+
+            if (!jobsList) return;
+
+            jobsList.innerHTML = '<p>Loading jobs...</p>';
+
+            try {
+                const response = await fetch("http://127.0.0.1:5000/recommend", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${localStorage.getItem("token")}`
+                    },
+                    body: JSON.stringify({
+                        skills,
+                        experience_level: experienceLevel,
+                        preferences: {
+                            desired_roles: roles,
+                            locations: ["Remote"],
+                            job_type: jobType
+                        }
+                    })
+                });
+                const data = await response.json();
+                jobsList.innerHTML = "";
+
+                if (data.length === 0) {
+                    jobsList.innerHTML = '<p>No jobs found. Try different criteria.</p>';
+                    return;
+                }
+
+                data.forEach(job => {
+                    const jobCard = document.createElement("div");
+                    jobCard.className = "job-card";
+                    jobCard.innerHTML = `
+                        <h3>${job.job_title}</h3>
+                        <p><strong>Company:</strong> ${job.company}</p>
+                        <p><strong>Location:</strong> ${job.location}</p>
+                        <p><strong>Job Type:</strong> ${job.job_type}</p>
+                        <p><strong>Experience:</strong> ${job.experience_level}</p>
+                        <p><strong>Score:</strong> ${job.score.toFixed(2)}</p>
+                        <div class="skills">
+                            ${job.required_skills.map(skill => `<span class="skill-tag">${skill}</span>`).join('')}
+                        </div>
+                        <button class="apply-button" onclick='applyForJob(${JSON.stringify(job)})'>Apply</button>
+                    `;
+                    jobsList.appendChild(jobCard);
+                });
+            } catch (error) {
+                console.error("Error fetching jobs:", error);
+                jobsList.innerHTML = '<p>Error loading jobs. Please try again.</p>';
+            }
+        }
+
+        async function applyForJob(job) {
+            try {
+                const response = await fetch("http://127.0.0.1:5000/apply", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${localStorage.getItem("token")}`
+                    },
+                    body: JSON.stringify({ job })
+                });
+                const data = await response.json();
+                if (data.error) {
+                    alert(data.error);
+                } else {
+                    alert("Application submitted successfully!");
+                }
+            } catch (error) {
+                console.error("Error applying for job:", error);
+                alert("Error submitting application. Please try again.");
+            }
+        }
+
+        async function loadApplications() {
+            try {
+                const response = await fetch("http://127.0.0.1:5000/applications", {
+                    headers: { "Authorization": `Bearer ${localStorage.getItem("token")}` }
+                });
+                const data = await response.json();
+                const applicationsList = document.getElementById("applications-list");
+
+                if (!applicationsList) return;
+
+                applicationsList.innerHTML = "";
+
+                if (data.length === 0) {
+                    applicationsList.innerHTML = '<p>No applications found.</p>';
+                    return;
+                }
+
+                data.forEach(app => {
+                    const appCard = document.createElement("div");
+                    appCard.className = "application-card";
+                    appCard.innerHTML = `
+                        <h3>${app.job_title}</h3>
+                        <p><strong>Company:</strong> ${app.company}</p>
+                        <p><strong>Location:</strong> ${app.location}</p>
+                        <p><strong>Job Type:</strong> ${app.job_type}</p>
+                        <p><strong>Experience:</strong> ${app.experience_level}</p>
+                        <p><strong>Application Date:</strong> ${app.application_date}</p>
+                        <div class="skills">
+                            ${app.required_skills.map(skill => `<span class="skill-tag">${skill}</span>`).join('')}
+                        </div>
+                        <div class="status-section">
+                            <select id="status-${app.id}">
+                                <option value="Applied" ${app.status === "Applied" ? "selected" : ""}>Applied</option>
+                                <option value="Interview Scheduled" ${app.status === "Interview Scheduled" ? "selected" : ""}>Interview Scheduled</option>
+                                <option value="Offer Received" ${app.status === "Offer Received" ? "selected" : ""}>Offer Received</option>
+                                <option value="Rejected" ${app.status === "Rejected" ? "selected" : ""}>Rejected</option>
+                            </select>
+                            <button class="update-button" onclick="updateApplicationStatus(${app.id})">Update Status</button>
+                            <button class="delete-button" onclick="deleteApplication(${app.id})">Delete</button>
+                        </div>
+                    `;
+                    applicationsList.appendChild(appCard);
+                });
+            } catch (error) {
+                console.error("Error fetching applications:", error);
+                const applicationsList = document.getElementById("applications-list");
+                if (applicationsList) {
+                    applicationsList.innerHTML = '<p>Error loading applications. Please try again.</p>';
+                }
+            }
+        }
+
+        async function updateApplicationStatus(appId) {
+            const statusSelect = document.getElementById(`status-${appId}`);
+            const newStatus = statusSelect.value;
+
+            try {
+                const response = await fetch(`http://127.0.0.1:5000/applications/${appId}`, {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${localStorage.getItem("token")}`
+                    },
+                    body: JSON.stringify({ status: newStatus })
+                });
+                const data = await response.json();
+                if (data.error) {
+                    alert(data.error);
+                } else {
+                    alert("Application status updated successfully!");
+                    loadApplications(); // Refresh the applications list
+                }
+            } catch (error) {
+                console.error("Error updating application status:", error);
+                alert("Error updating status. Please try again.");
+            }
+        }
+
+        async function deleteApplication(appId) {
+            if (!confirm("Are you sure you want to delete this application?")) return;
+
+            try {
+                const response = await fetch(`http://127.0.0.1:5000/applications/${appId}`, {
+                    method: "DELETE",
+                    headers: {
+                        "Authorization": `Bearer ${localStorage.getItem("token")}`
+                    }
+                });
+                const data = await response.json();
+                if (data.error) {
+                    alert(data.error);
+                } else {
+                    alert("Application deleted successfully!");
+                    loadApplications(); // Refresh the applications list
+                }
+            } catch (error) {
+                console.error("Error deleting application:", error);
+                alert("Error deleting application. Please try again.");
+            }
+        }
+
+        // Load career resources
+        async function loadResources() {
+            try {
+                document.getElementById('courses-list').innerHTML = '<p>Loading...</p>';
+                document.getElementById('articles-list').innerHTML = '<p>Loading...</p>';
+
+                const response = await fetch("http://127.0.0.1:5000/resources", {
+                    headers: { "Authorization": `Bearer ${localStorage.getItem("token")}` }
+                });
+                const resources = await response.json();
+
+                const coursesList = document.getElementById('courses-list');
+                const articlesList = document.getElementById('articles-list');
+
+                coursesList.innerHTML = '';
+                articlesList.innerHTML = '';
+
+                if (resources.length === 0) {
+                    coursesList.innerHTML = '<p>No courses found.</p>';
+                    articlesList.innerHTML = '<p>No articles found.</p>';
+                    return;
+                }
+
+                resources.forEach(resource => {
+                    const card = document.createElement('div');
+                    card.className = 'resource-card';
+                    card.innerHTML = `
+                        <div style="display: flex; align-items: center;">
+                            <img src="${getPlatformLogo(resource.platform)}" alt="${resource.platform} logo">
+                            <h3>${resource.title}</h3>
+                        </div>
+                        <p><strong>Platform:</strong> ${resource.platform}</p>
+                        <p><strong>Description:</strong> ${resource.description}</p>
+                        <p><strong>Skills:</strong> ${resource.skills ? resource.skills.join(', ') : 'N/A'}</p>
+                        <p><strong>Difficulty:</strong> ${resource.difficulty}</p>
+                        <p><strong>Duration:</strong> ${resource.duration}</p>
+                        <p><strong>Cost:</strong> ${resource.cost}</p>
+                        <a href="${resource.url}" target="_blank" class="apply-button">Go to Resource</a>
+                    `;
+                    if (resource.type === 'course' || resource.type === 'certification') {
+                        coursesList.appendChild(card);
+                    } else {
+                        articlesList.appendChild(card);
+                    }
+                });
+            } catch (error) {
+                console.error('Error loading resources:', error);
+                document.getElementById('courses-list').innerHTML = '<p>Error loading resources.</p>';
+                document.getElementById('articles-list').innerHTML = '<p>Error loading resources.</p>';
+            }
+        }
+
+        // Get platform logo
+        function getPlatformLogo(platform) {
+            const logos = {
+                'Coursera': 'https://www.coursera.org/favicon.ico',
+                'Udemy': 'https://www.udemy.com/staticx/udemy/images/v7/logo-udemy.svg',
+                'AWS': 'https://aws.amazon.com/favicon.ico',
+                'edX': 'https://www.edx.org/favicon.ico',
+                'freeCodeCamp': 'https://www.freecodecamp.org/favicon.ico',
+                'The Muse': 'https://www.themuse.com/favicon.ico',
+                'Forbes': 'https://www.forbes.com/favicon.ico',
+                'Wired': 'https://www.wired.com/favicon.ico',
+                'Google Cloud': 'https://cloud.google.com/_static/favicon.ico'
+            };
+            return logos[platform] || 'https://via.placeholder.com/50';
+        }
+
+        // Start assessment
+        async function startAssessment() {
+            const skill = document.getElementById('assessment-skill').value;
+            if (!skill) {
+                alert('Please select a skill.');
+                return;
+            }
+
+            try {
+                document.getElementById('assessment-questions').innerHTML = '<p>Loading...</p>';
+                const response = await fetch(`http://127.0.0.1:5000/assessments/${skill}`, {
+                    headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+                });
+                if (!response.ok) {
+                    throw new Error('Failed to load assessment questions');
+                }
+                const questions = await response.json();
+                const questionsDiv = document.getElementById('assessment-questions');
+                questionsDiv.classList.remove('hidden');
+                questionsDiv.innerHTML = `
+                    <h3>${skill} Assessment</h3>
+                    <form id="assessment-form">
+                        ${questions.map((q, index) => `
+                            <div class="input-group" data-question-id="${q.id}">
+                                <p><strong>Question ${index + 1}:</strong> ${q.question}</p>
+                                ${q.options.map((opt, i) => `
+                                    <label>
+                                        <input type="radio" name="question-${q.id}" value="${opt}" required>
+                                        ${opt}
+                                    </label><br>
+                                `).join('')}
+                            </div>
+                        `).join('')}
+                        <button type="button" onclick="submitAssessment('${skill}')">Submit Assessment</button>
+                    </form>
+                `;
+            } catch (error) {
+                console.error('Error starting assessment:', error);
+                document.getElementById('assessment-questions').innerHTML = '<p>Error loading assessment.</p>';
+            }
+        }
+
+        // Submit assessment
+        async function submitAssessment(skill) {
+            const form = document.getElementById('assessment-form');
+            const answers = {};
+            let allAnswered = true;
+
+            form.querySelectorAll('.input-group').forEach(group => {
+                const questionId = group.dataset.questionId;
+                const selectedOption = group.querySelector(`input[name="question-${questionId}"]:checked`);
+                if (selectedOption) {
+                    answers[questionId] = selectedOption.value;
+                } else {
+                    allAnswered = false;
+                }
+            });
+
+            if (!allAnswered) {
+                alert('Please answer all questions.');
+                return;
+            }
+
+            try {
+                const response = await fetch('http://127.0.0.1:5000/assessments', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    },
+                    body: JSON.stringify({ skill, answers })
+                });
+                if (!response.ok) {
+                    throw new Error('Failed to submit assessment');
+                }
+                const result = await response.json();
+                document.getElementById('assessment-results').classList.remove('hidden');
+                document.getElementById('assessment-results').innerHTML = `
+                    <p>Your score: ${result.score} / ${result.total_questions}</p>
+                    <p>${result.score >= Math.ceil(result.total_questions * 0.6) ? 
+                        `<span style="color: #15803d;">🎉 Great job! You've earned the "${skill} Beginner" badge!</span>` : 
+                        'Keep practicing! Check recommended courses.'}</p>
+                    <button onclick="recommendCourses('${skill}')">Recommend Courses</button>
+                    <button onclick="retakeAssessment()">Retake Assessment</button>
+                `;
+                document.getElementById('assessment-questions').classList.add('hidden');
+                loadAssessmentHistory();
+            } catch (error) {
+                console.error('Error submitting assessment:', error);
+                alert('Error submitting assessment: ' + error.message);
+            }
+        }
+
+        // Recommend courses
+        async function recommendCourses(skill) {
+            try {
+                const response = await fetch(`http://127.0.0.1:5000/resources?skill=${skill}`, {
+                    headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+                });
+                if (!response.ok) {
+                    throw new Error('Failed to load resources');
+                }
+                const resources = await response.json();
+                const coursesList = document.getElementById('courses-list');
+                coursesList.innerHTML = resources.length ? resources.map(resource => `
+                    <div class="resource-card">
+                        <div style="display: flex; align-items: center;">
+                            <img src="${getPlatformLogo(resource.platform)}" alt="${resource.platform} logo">
+                            <h3>${resource.title}</h3>
+                        </div>
+                        <p><strong>Platform:</strong> ${resource.platform}</p>
+                        <p><strong>Description:</strong> ${resource.description}</p>
+                        <p><strong>Skills:</strong> ${resource.skills ? resource.skills.join(', ') : 'N/A'}</p>
+                        <p><strong>Difficulty:</strong> ${resource.difficulty}</p>
+                        <p><strong>Duration:</strong> ${resource.duration}</p>
+                        <p><strong>Cost:</strong> ${resource.cost}</p>
+                        <a href="${resource.url}" target="_blank" class="apply-button">Go to Resource</a>
+                    </div>
+                `).join('') : '<p>No courses found for this skill.</p>';
+                showTab('courses');
+            } catch (error) {
+                console.error('Error loading resources:', error);
+                alert('Error loading recommended courses.');
+            }
+        }
+
+        // Retake assessment
+        function retakeAssessment() {
+            document.getElementById('assessment-results').classList.add('hidden');
+            document.getElementById('assessment-questions').classList.add('hidden');
+            document.getElementById('assessment-skill').value = '';
+        }
+
+        // Load assessment history
+        async function loadAssessmentHistory() {
+            try {
+                document.getElementById('history-list').innerHTML = '<p>Loading...</p>';
+                const response = await fetch('http://127.0.0.1:5000/assessments/history', {
+                    headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+                });
+                if (!response.ok) {
+                    throw new Error('Failed to load assessment history');
+                }
+                const history = await response.json();
+                const historyList = document.getElementById('history-list');
+                historyList.innerHTML = history.length ? history.map(h => `
+                    <li>${h.skill} - Score: ${h.score}/${h.total_questions} - Completed: ${h.completed_at}</li>
+                `).join('') : '<p>No assessments completed yet.</p>';
+            } catch (error) {
+                console.error('Error loading assessment history:', error);
+                document.getElementById('history-list').innerHTML = '<p>Error loading history.</p>';
+            }
+        }
+         
+        function generateResume() {
+  const data = {
+    name: document.getElementById('resume-name').value,
+    email: document.getElementById('resume-email').value,
+    phone: document.getElementById('resume-phone').value,
+    profile: document.getElementById('resume-profile').value,
+    btech: document.getElementById('edu-btech').value,
+    class12: document.getElementById('edu-12').value,
+    class10: document.getElementById('edu-10').value,
+    projects: document.getElementById('resume-projects').value,
+    techSkills: Array.from(document.getElementById('resume-techskills').selectedOptions).map(opt => opt.value),
+    softSkills: Array.from(document.getElementById('resume-softskills').selectedOptions).map(opt => opt.value),
+    languages: Array.from(document.getElementById('resume-languages').selectedOptions).map(opt => opt.value)
+  };
+
+  fetch('http://localhost:5000/generate_resume', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  })
+    .then(response => {
+      if (!response.ok) {
+        console.error("Failed response:", response);
+        throw new Error("Resume generation failed.");
+      }
+      return response.blob();
+    })
+    .then(blob => {
+      console.log("Received PDF blob:", blob);
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'resume.pdf';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+    })
+    .catch(error => {
+      console.error("Error caught in fetch:", error);
+      alert("Something went wrong. Please try again.");
+    });
+}
+
+
+
+
+        // Show tab
+        function showTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.add('hidden'));
+            document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(`${tabId}-tab`).classList.remove('hidden');
+            document.querySelector(`button[onclick="showTab('${tabId}')"]`).classList.add('active');
+        }
+    </script>
+</body>
+</html>

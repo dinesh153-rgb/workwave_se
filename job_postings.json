@@ -1,0 +1,236 @@
+[
+  {
+      "job_id": 1,
+      "job_title": "Software Engineer",
+      "company": "Tech Solutions Inc.",
+      "required_skills": ["Python", "Flask", "JavaScript"],
+      "location": "New York",
+      "job_type": "Full-time",
+      "experience_level": "Mid-level"
+  },
+  {
+      "job_id": 2,
+      "job_title": "Data Scientist",
+      "company": "Data Corp",
+      "required_skills": ["Python", "Machine Learning", "Statistics"],
+      "location": "Remote",
+      "job_type": "Part-time",
+      "experience_level": "Entry-level"
+  },
+  {
+      "job_id": 3,
+      "job_title": "Web Developer",
+      "company": "Web Solutions Ltd.",
+      "required_skills": ["HTML", "CSS", "JavaScript"],
+      "location": "San Francisco",
+      "job_type": "Internship",
+      "experience_level": "Entry-level"
+  },
+  {
+      "job_id": 4,
+      "job_title": "Product Manager",
+      "company": "Innovate Inc.",
+      "required_skills": ["Agile", "Communication", "Leadership"],
+      "location": "Hybrid",
+      "job_type": "Full-time",
+      "experience_level": "Senior-level"
+  },
+  {
+      "job_id": 5,
+      "job_title": "DevOps Engineer",
+      "company": "OpsWorks",
+      "required_skills": ["Docker", "Kubernetes", "AWS"],
+      "location": "On-site",
+      "job_type": "Full-time",
+      "experience_level": "Mid-level"
+  },
+  {
+      "job_id": 6,
+      "job_title": "Data Analyst",
+      "company": "Insight Analytics",
+      "required_skills": ["SQL", "Data Visualization", "Excel"],
+      "location": "Remote",
+      "job_type": "Contract",
+      "experience_level": "Entry-level"
+  },
+  {
+      "job_id": 7,
+      "job_title": "UX/UI Designer",
+      "company": "Creative Minds",
+      "required_skills": ["Figma", "Adobe XD", "Prototyping"],
+      "location": "On-site",
+      "job_type": "Full-time",
+      "experience_level": "Mid-level"
+  },
+  {
+      "job_id": 8,
+      "job_title": "Backend Developer",
+      "company": "DevOps Solutions",
+      "required_skills": ["Node.js", "Express", "MongoDB"],
+      "location": "Hybrid",
+      "job_type": "Full-time",
+      "experience_level": "Mid-level"
+  },
+  {
+      "job_id": 9,
+      "job_title": "Mobile App Developer",
+      "company": "App Innovations",
+      "required_skills": ["Flutter", "Dart", "API Integration"],
+      "location": "Remote",
+      "job_type": "Full-time",
+      "experience_level": "Mid-level"
+  },
+  {
+      "job_id": 10,
+      "job_title": "Full Stack Developer",
+      "company": "Tech Forward",
+      "required_skills": ["JavaScript", "React", "Node.js"],
+      "location": "San Francisco",
+      "job_type": "Full-time",
+      "experience_level": "Mid-level"
+  },
+  {
+      "job_id": 11,
+      "job_title": "Cloud Engineer",
+      "company": "CloudX",
+      "required_skills": ["AWS", "Azure", "Terraform"],
+      "location": "Remote",
+      "job_type": "Full-time",
+      "experience_level": "Senior-level"
+  },
+  {
+      "job_id": 12,
+      "job_title": "Cybersecurity Analyst",
+      "company": "SecureIT",
+      "required_skills": ["Network Security", "Penetration Testing", "Risk Assessment"],
+      "location": "On-site",
+      "job_type": "Full-time",
+      "experience_level": "Mid-level"
+  },
+  {
+      "job_id": 13,
+      "job_title": "Technical Writer",
+      "company": "WriteTech",
+      "required_skills": ["Documentation", "Technical Communication", "SEO"],
+      "location": "Hybrid",
+      "job_type": "Part-time",
+      "experience_level": "Entry-level"
+  },
+  {
+      "job_id": 14,
+      "job_title": "Systems Administrator",
+      "company": "SystemTech",
+      "required_skills": ["Linux", "Networking", "Virtualization"],
+      "location": "On-site",
+      "job_type": "Full-time",
+      "experience_level": "Mid-level"
+  },
+  {
+      "job_id": 15,
+      "job_title": "Game Developer",
+      "company": "FunTech",
+      "required_skills": ["Unity", "C#", "Game Design"],
+      "location": "Remote",
+      "job_type": "Contract",
+      "experience_level": "Mid-level"
+  },
+  {
+      "job_id": 16,
+      "job_title": "Marketing Specialist",
+      "company": "MarketPro",
+      "required_skills": ["Digital Marketing", "Content Creation", "SEO"],
+      "location": "Hybrid",
+      "job_type": "Full-time",
+      "experience_level": "Entry-level"
+  },
+  {
+      "job_id": 17,
+      "job_title": "Data Engineer",
+      "company": "Data Works",
+      "required_skills": ["Python", "ETL", "Big Data"],
+      "location": "On-site",
+      "job_type": "Full-time",
+      "experience_level": "Senior-level"
+  },
+  {
+      "job_id": 18,
+      "job_title": "Network Engineer",
+      "company": "Net Solutions",
+      "required_skills": ["Cisco", "Networking", "Firewall"],
+      "location": "Remote",
+      "job_type": "Full-time",
+      "experience_level": "Mid-level"
+  },
+  {
+      "job_id": 19,
+      "job_title": "Blockchain Developer",
+      "company": "Crypto Innovations",
+      "required_skills": ["Solidity", "Ethereum", "Smart Contracts"],
+      "location": "Hybrid",
+      "job_type": "Full-time",
+      "experience_level": "Senior-level"
+  },
+  {
+      "job_id": 20,
+      "job_title": "AI Research Scientist",
+      "company": "AI Labs",
+      "required_skills": ["Machine Learning", "TensorFlow", "Python"],
+      "location": "Remote",
+      "job_type": "Full-time",
+      "experience_level": "Senior-level"
+  },
+  {
+      "job_id": 21,
+      "job_title": "Research Analyst",
+      "company": "Market Insights",
+      "required_skills": ["Market Research", "Data Analysis", "Report Writing"],
+      "location": "Hybrid",
+      "job_type": "Full-time",
+      "experience_level": "Entry-level"
+  },
+  {
+      "job_id": 22,
+      "job_title": "Sales Engineer",
+      "company": "SalesTech",
+      "required_skills": ["Salesforce", "Communication", "Technical Knowledge"],
+      "location": "Remote",
+      "job_type": "Full-time",
+      "experience_level": "Mid-level"
+  },
+  {
+      "job_id": 23,
+      "job_title": "Quality Assurance Engineer",
+      "company": "QA Solutions",
+      "required_skills": ["Automation Testing", "Selenium", "API Testing"],
+      "location": "On-site",
+      "job_type": "Full-time",
+      "experience_level": "Mid-level"
+  },
+  {
+      "job_id": 24,
+      "job_title": "SEO Specialist",
+      "company": "SEO Experts",
+      "required_skills": ["SEO", "Google Analytics", "Content Strategy"],
+      "location": "Remote",
+      "job_type": "Part-time",
+      "experience_level": "Entry-level"
+  },
+  {
+      "job_id": 25,
+      "job_title": "Database Administrator",
+      "company": "Data Systems",
+      "required_skills": ["SQL", "Database Management", "Performance Tuning"],
+      "location": "On-site",
+      "job_type": "Full-time",
+      "experience_level": "Senior-level"
+  },
+  {
+      "job_id": 26,
+      "job_title": "Frontend Developer",
+      "company": "Creative Tech",
+      "required_skills": ["HTML", "CSS", "JavaScript", "React"],
+      "location": "Remote",
+      "job_type": "Full-time",
+      "experience_level": "Mid-level"
+  }
+]
