@@ -1,0 +1,4 @@
+flask
+fpdf
+flask_cors
+pyjwt
