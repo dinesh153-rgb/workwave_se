@@ -891,4 +891,5 @@ if __name__ == '__main__':
         os.makedirs(UPLOAD_FOLDER)
     init_db()
     print("Database initialized.")
-    app.run(debug=True, port=5000)
+     port = int(os.environ.get("PORT", 5000))  # default to 5000 if PORT isn't set
+    app.run(host="0.0.0.0", port=port)
